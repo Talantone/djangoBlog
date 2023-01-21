@@ -1,0 +1,35 @@
+name: Project test & build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
+        with:
+          persist-credentials: false
+
+      - name: Install 🔧
+        run: pip3 install 
+
+      - name: Run Test 🔨
+        run: python3 manage.py test .
+
+      - name: Build 👷
+        run: python3 manage.py runserver
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.KEY }}
+          BRANCH: gh-pages
+          FOLDER: public
+          CLEAN: true
+
