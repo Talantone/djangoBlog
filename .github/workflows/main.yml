@@ -17,13 +17,13 @@ jobs:
           persist-credentials: false
 
       - name: Install 🔧
-        run: pip install requirements.txt
+        run: pip3 install -r requirements.txt
 
       - name: Run Test 🔨
-        run: npm run test
+        run: python3 manage.py test .
 
       - name: Build 👷
-        run: npm run build
+        run: python3 manage.py runserver
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
