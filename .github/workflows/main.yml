@@ -17,7 +17,7 @@ jobs:
           persist-credentials: false
 
       - name: Install 🔧
-        run: npm install
+        run: pip install requirements.txt
 
       - name: Run Test 🔨
         run: npm run test
