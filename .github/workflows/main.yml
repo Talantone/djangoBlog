@@ -22,9 +22,6 @@ jobs:
       - name: Run Test 🔨
         run: python3 manage.py test .
 
-      - name: Build 👷
-        run: python3 manage.py runserver
-
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
