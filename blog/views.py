@@ -10,6 +10,7 @@ class PostAPIList(generics.ListAPIView):
     serializer_class = PostListSerializer
     queryset = BlogPost.objects.all().order_by('-id')
 
+    #function for returning 3 last posts
     def get_queryset(self):
         queryset = self.queryset.all()
         if len(queryset) > 2:
