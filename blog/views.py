@@ -18,7 +18,7 @@ class PostAPIList(generics.ListAPIView):
             return queryset
 
 
-class PostAPIDetail(generics.RetrieveUpdateDestroyAPIView):
+class PostAPIDetail(generics.RetrieveAPIView):
     serializer_class = PostDetailSerializer
     queryset = BlogPost.objects.all()
 

@@ -10,6 +10,6 @@ app_name = 'blog'
 #router.register(r'blog', PostsViewSet, basename='posts')
 
 urlpatterns = [
-    path('posts', views.PostAPIList.as_view(), name='posts'),
-    path('posts/<int:pk>', views.PostAPIDetail.as_view())
+    path(r'posts/', views.PostAPIList.as_view(), name='posts'),
+    path(r'posts/<int:pk>', views.PostAPIDetail.as_view(), name='post-detail')
 ]
