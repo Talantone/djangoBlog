@@ -11,6 +11,6 @@ app_name = 'blog'
 
 urlpatterns = [
     path(r'posts/', views.PostAPIList.as_view(), name='posts'),
-    path(r'posts/<slug:slug>', PostAPIListByTag.as_view(), name='posts-by-tag'),
+    path(r'posts/by-tag/<slug:slug>', PostAPIListByTag.as_view(), name='posts-by-tag'),
     path(r'posts/<int:pk>', views.PostAPIDetail.as_view(), name='post-detail')
 ]
