@@ -2,7 +2,7 @@ from django.urls import path
 from rest_framework import routers
 
 from . import views
-from .views import PostAPIList, PostAPIDetail
+from .views import PostAPIList, PostAPIDetail, PostAPIListByTag
 
 app_name = 'blog'
 
@@ -11,5 +11,6 @@ app_name = 'blog'
 
 urlpatterns = [
     path(r'posts/', views.PostAPIList.as_view(), name='posts'),
+    path(r'posts/<slug:slug>', PostAPIListByTag.as_view(), name='posts-by-tag'),
     path(r'posts/<int:pk>', views.PostAPIDetail.as_view(), name='post-detail')
 ]

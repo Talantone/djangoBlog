@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets, generics
 from rest_framework.generics import get_object_or_404
 
-from .models import BlogPost
+from .models import BlogPost, Tag
 from .serializers import PostDetailSerializer, PostListSerializer
 
 
@@ -24,3 +24,12 @@ class PostAPIDetail(generics.RetrieveAPIView):
     queryset = BlogPost.objects.all()
 
 
+class PostAPIListByTag(generics.ListAPIView):
+    serializer_class = PostListSerializer
+    queryset = BlogPost.objects.all()
+
+    def get_queryset(self):
+        slug = self.kwargs.get('slug')
+        tag = Tag.objects.get(slug=slug)
+        queryset = self.queryset.filter(tags=tag)
+        return queryset
