@@ -3,7 +3,7 @@ from rest_framework.test import APITestCase
 from django.urls import reverse
 
 from blog import views
-from blog.models import BlogPost
+from blog.models import BlogPost, Tag
 from blog.serializers import PostListSerializer, PostDetailSerializer
 
 
@@ -29,5 +29,18 @@ class PostsAPITestCase(APITestCase):
         url = reverse('blog:post-detail', args=[post1.pk])
         response = self.client.get(url)
         serializer_data = PostDetailSerializer(post1).data
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+        self.assertEqual(serializer_data, response.data)
+
+
+    def test_get_posts_by_tag(self):
+        tag = Tag.objects.create(name='tag')
+        post1 = BlogPost.objects.create(title='post1', content='post1', image='images/2_Angry-Monkey.jpg')
+        post2 = BlogPost.objects.create(title='post2', content='post2', image='images/2018_01_art_7_1_400.jpg')
+        post1.tags.set([tag])
+        post2.tags.set([tag])
+        url = reverse('blog:posts-by-tag', kwargs={'slug': tag.slug})
+        response = self.client.get(url)
+        serializer_data = PostListSerializer([post1, post2], many=True).data
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(serializer_data, response.data)
